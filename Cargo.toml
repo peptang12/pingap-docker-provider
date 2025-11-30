@@ -1,11 +1,11 @@
 [package]
 name = "pingap-docker-provider"
 version = "0.1.0"
-edition = "2021"
-authors = ["Nikita Stepanov"]
+edition = "2025"
+authors = ["snaart"]
 license = "MIT"
 description = "Automatic Pingap reverse proxy configurator for Docker containers"
-repository = "https://github.com/YOUR_USERNAME/pingap-docker-provider"
+repository = "https://github.com/snaart/pingap-docker-provider"
 readme = "README.md"
 keywords = ["docker", "reverse-proxy", "pingap", "service-discovery"]
 categories = ["network-programming", "web-programming"]
